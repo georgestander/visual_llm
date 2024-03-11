@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Generated Ideas{% endblock %}
+
+{% block content %}
+    <h1>Generated Ideas</h1>
+    <ul>
+        {% for idea in ideas %}
+            <li>{{ idea }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
