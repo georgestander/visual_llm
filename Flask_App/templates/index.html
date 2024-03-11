@@ -1,13 +1,22 @@
-
-{% extends 'base.html' %}
-
-{% block title %}Generated Ideas{% endblock %}
-
-{% block content %}
-    <h1>Generated Ideas</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visual LLM</title>
+</head>
+<body>
+    <h1>Visual LLM</h1>
+    <form method="POST" action="/">
+        <label for="prompt">Enter your prompt:</label><br>
+        <textarea name="prompt" rows="5" cols="50"></textarea><br>
+        <input type="submit" value="Generate Ideas">
+    </form>
+    {% if ideas %}
+    <h2>Generated Ideas:</h2>
     <ul>
         {% for idea in ideas %}
-            <li>{{ idea }}</li>
+        <li>{{ idea }}</li>
         {% endfor %}
     </ul>
-{% endblock %}
+    {% endif %}
+</body>
+</html>
