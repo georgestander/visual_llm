@@ -1,5 +1,6 @@
 import pathlib
 import textwrap
+import os
 
 import google.generativeai as genai
 
