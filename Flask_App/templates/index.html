@@ -10,6 +10,14 @@
         <textarea name="prompt" rows="5" cols="50"></textarea><br>
         <input type="submit" value="Generate Ideas">
     </form>
+    <h2>Chat History</h2>
+    <ul>
+        {% for message in chat_history %}
+        <li>
+            <strong>{{ message['role'].capitalize() }}:</strong> {{ message['content'] }}
+        </li>
+        {% endfor %}
+    </ul>
     {% if ideas %}
     <h2>Generated Ideas:</h2>
     <ul>
