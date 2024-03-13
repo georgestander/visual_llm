@@ -47,8 +47,11 @@
                 <strong>{{ message['role'].capitalize() }}:</strong> <pre>{{ message['content'] }}</pre>
             </div>
         {% endfor %}
+        <div class="message assistant-message"> <!-- Ensuring the message response is in the chat-container div with correct styling -->
+            
+        </div>
     </div>
-    <div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; justify-content: space-between; gap: 50px;">
         <form method="POST" action="/">
             <textarea name="prompt" rows="1" cols="100" style="height: 100px; overflow-y: auto; resize: none;"></textarea><br>
             <input type="submit" value="Send">
