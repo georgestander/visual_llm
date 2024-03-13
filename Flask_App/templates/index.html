@@ -2,29 +2,47 @@
 <html>
 <head>
     <title>Visual LLM</title>
+    <style>
+        .chat-container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            max-width: 400px;
+            overflow-y: scroll;
+            height: 300px;
+        }
+        .message {
+            margin: 5px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .user-message {
+            background-color: #f0f0f0;
+        }
+        .assistant-message {
+            background-color: #e6f7ff;
+        }
+    </style>
 </head>
 <body>
     <h1>Visual LLM</h1>
-    <form method="POST" action="/">
-        <label for="prompt">Enter your prompt:</label><br>
-        <textarea name="prompt" rows="5" cols="50"></textarea><br>
-        <input type="submit" value="Generate Ideas">
-    </form>
-    <h2>Chat History</h2>
-    <ul>
+    <div class="chat-container">
         {% for message in chat_history %}
-        <li>
-            <strong>{{ message['role'].capitalize() }}:</strong> {{ message['content'] }}
-        </li>
+            <div class="message {% if message['role'] == 'user' %}user-message{% else %}assistant-message{% endif %}">
+                <strong>{{ message['role'].capitalize() }}:</strong> {{ message['content'] }}
+            </div>
         {% endfor %}
-    </ul>
+    </div>
+    <form method="POST" action="/">
+        <textarea name="prompt" rows="1" cols="50" style="height: 100px; overflow-y: auto; resize: none;"></textarea><br>
+        <input type="submit" value="Send">
+    </form>
     {% if ideas %}
     <h2>Generated Ideas:</h2>
-    <ul>
-        {% for idea in ideas %}
-        <li>{{ idea }}</li>
-        {% endfor %}
-    </ul>
+    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 10px;">
+        {{ ideas }}
+    </div>
     {% endif %}
 </body>
 </html>

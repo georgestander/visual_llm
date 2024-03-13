@@ -18,11 +18,20 @@ def generate_ideas(prompt):
         messages=conversation
     )
     
-    # Extract the generated ideas from the response
-    # Use the 'message' attribute to access the content
-    ideas_text = completion.choices[0].message.content  # Note the change here from ["content"] to .content
+    # Concatenate all assistant messages into one string without separate lines
+    ideas_text = " ".join([choice.message.content for choice in completion.choices])
     
-    # Wrap the text at 60 characters for display purposes
-    ideas = textwrap.wrap(ideas_text, 60)
-    
-    return ideas
+    # Return the ideas text as a single string
+    return ideas_text
+
+
+def get_assistant_response(prompt):
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+    # Assuming the response contains a single completion
+    return response.choices[0].message.content
