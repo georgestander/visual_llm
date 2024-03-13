@@ -33,5 +33,20 @@ def get_assistant_response(prompt):
             {"role": "user", "content": prompt}
         ]
     )
-    # Assuming the response contains a single completion
-    return response.choices[0].message.content
+    full_response = response.choices[0].message.content
+    
+    # Split the response by lines
+    lines = full_response.split('\n')
+    main_response = []
+    ideas = []
+    for line in lines:
+        line = line.strip().lower()
+        if line.lower().startswith(('idea:', 'step:', 'suggestion:', '1.', '1)', 'a)', 'i)', 'ii)', 'iii)')):
+            ideas.append(line)
+        else:
+            main_response.append(line)
+    
+    # Join the non-idea parts as the main response
+    main_response = '\n'.join(main_response)
+    
+    return main_response, ideas

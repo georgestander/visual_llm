@@ -2,15 +2,31 @@
 <html>
 <head>
     <title>Visual LLM</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const textarea = document.querySelector('textarea');
+        if (textarea) {
+            textarea.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && document.activeElement === textarea) { 
+                    e.preventDefault(); 
+                    document.querySelector('form').submit(); 
+                } // Submit the form using JavaScript
+            });
+        }
+    });
+    </script>
+</head>
+<body>
     <style>
         .chat-container {
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 10px;
             margin: 10px;
-            max-width: 400px;
+            max-width: 100%;
             overflow-y: scroll;
-            height: 300px;
+            height: calc(100vh - 300px);
         }
         .message {
             margin: 5px;
@@ -24,25 +40,27 @@
             background-color: #e6f7ff;
         }
     </style>
-</head>
-<body>
     <h1>Visual LLM</h1>
     <div class="chat-container">
         {% for message in chat_history %}
             <div class="message {% if message['role'] == 'user' %}user-message{% else %}assistant-message{% endif %}">
-                <strong>{{ message['role'].capitalize() }}:</strong> {{ message['content'] }}
+                <strong>{{ message['role'].capitalize() }}:</strong> <pre>{{ message['content'] }}</pre>
             </div>
         {% endfor %}
     </div>
-    <form method="POST" action="/">
-        <textarea name="prompt" rows="1" cols="50" style="height: 100px; overflow-y: auto; resize: none;"></textarea><br>
-        <input type="submit" value="Send">
-    </form>
-    {% if ideas %}
-    <h2>Generated Ideas:</h2>
-    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 10px;">
-        {{ ideas }}
+    <div style="display: flex; justify-content: space-between;">
+        <form method="POST" action="/">
+            <textarea name="prompt" rows="1" cols="100" style="height: 100px; overflow-y: auto; resize: none;"></textarea><br>
+            <input type="submit" value="Send">
+        </form>
+        {% if ideas %}
+        <div class="ideas-container" style="border: 1px solid #ccc; border-radius: 10px; padding: 10px; width: 100%; height: 100px; overflow-y: scroll;">
+            <h2>Generated Ideas:</h2>
+            {% for idea in ideas %}
+                <p>{{ idea }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
 </body>
 </html>
