@@ -8,9 +8,9 @@
         const textarea = document.querySelector('textarea');
         if (textarea) {
             textarea.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && document.activeElement === textarea) { 
-                    e.preventDefault(); 
-                    document.querySelector('form').submit(); 
+                if (e.key === 'Enter' && document.activeElement === textarea) {
+                    e.preventDefault();
+                    document.querySelector('form').submit();
                 } // Submit the form using JavaScript
             });
         }
@@ -28,20 +28,27 @@
             overflow-y: scroll;
             height: calc(100vh - 300px);
         }
+
+        pre {
+          word-wrap: break-word;
+          white-space: pre-wrap;
+        }
+
         .message {
             margin: 5px;
             padding: 5px;
             border-radius: 5px;
             word-wrap: break-word;
             white-space: pre-wrap;
-            box-sizing: border-box;        
+            box-sizing: border-box;
         }
         .user-message {
             background-color: #f0f0f0;
         }
         .assistant-message {
             background-color: #e6f7ff;
-            max-width: 100%;
+            max-width: calc(100% - 20px);
+            overflow-x: auto;
         }
     </style>
     <h1>Visual LLM</h1>
